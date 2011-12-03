@@ -34,7 +34,7 @@ endef
 
 # self-configuration
 
-self_CPPFLAGS := -I./ -Iinclude/ -DRUNTIME_CONFIGURATION='' -DEXT_HASH_MAP
+self_CPPFLAGS := -I./ -Iinclude/ -DKLEE_LIB_DIR='"$(libdir)"' -DRUNTIME_CONFIGURATION='' -DEXT_HASH_MAP
 self_DEPS := libllvm
 self_LDFLAGS := -ldl -lpthread
 

@@ -1,2 +1,2 @@
 #!/bin/bash
-./build/bin/klee --only-output-states-covering-new t/jpeg.bc
+./build/bin/klee --klee-lib-dir=$(pwd)/build/lib --only-output-states-covering-new t/jpeg.bc

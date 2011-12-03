@@ -114,6 +114,10 @@ namespace {
   ExitOnError("exit-on-error", 
               cl::desc("Exit if errors occur"));
     
+  cl::opt<std::string>
+  KleeLibDir("klee-lib-dir",
+              cl::desc("Lib dir for klee runtime support libraries"),
+              cl::init(KLEE_LIB_DIR));
 
   enum LibcType {
     NoLibc, KleeLibc, UcLibc
@@ -1213,7 +1217,7 @@ int main(int argc, char **argv, char **envp) {
       return r;
   }
 
-  llvm::sys::Path LibraryDir(KLEE_DIR "/" RUNTIME_CONFIGURATION "/lib");
+  llvm::sys::Path LibraryDir(KleeLibDir.c_str());
   Interpreter::ModuleOptions Opts(LibraryDir.c_str(),
                                   /*Optimize=*/OptimizeModule, 
                                   /*CheckDivZero=*/CheckDivZero);
