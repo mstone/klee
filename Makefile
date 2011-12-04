@@ -31,13 +31,13 @@ pr-%:
 #
 PROGRAMS = build/bin/klee
 
-SCRIPTS = tools/ktest-tool/ktest-tool
+SCRIPTS = build/bin/ktest-tool
 
 LIBRARIES = build/lib/libkleeRuntimeIntrinsic.bca build/lib/libkleeRuntimePOSIX.bca
 
 HEADERS = build/usr/include/klee/klee.h
 
-MANPAGES_GZ = $(patsubst build/bin/%,man1/%.1.gz,$(SCRIPTS) $(BINARIES))
+MANPAGES_GZ = $(patsubst build/bin/%,man1/%.1.gz,$(SCRIPTS) $(PROGRAMS))
 
 MANPAGES_HTML = $(patsubst %.gz,%.html,$(MANPAGES))
 
@@ -111,6 +111,9 @@ build/usr/lib/pkgconfig/klee.pc: build/usr/lib/pkgconfig/.dir config.mk Makefile
 	echo 'Cflags: -I$${includedir}/klee'   >> $@
 
 build/usr/include/klee/klee.h: include/klee/klee.h build/usr/include/klee/.dir
+	cp $< $@
+
+build/bin/ktest-tool: tools/ktest-tool/ktest-tool build/bin/.dir
 	cp $< $@
 
 t/help.t.ok: build/bin/klee

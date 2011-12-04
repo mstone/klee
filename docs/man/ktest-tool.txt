@@ -1,0 +1,40 @@
+% KTEST-TOOL(1) klee User Manuals
+% Michael Stone <mistone@akamai.com>
+% December 3, 2011
+
+<!-- Copyright (c) 2011 Akamai Technologies, Inc. -->
+
+# NAME
+
+ktest-tool - klee test-case viewer
+
+# SYNOPSIS
+
+*ktest-tool* KTEST_FILE
+
+# OPTIONS
+
+-h, \-\-help
+:    show this help message and exit
+
+\-\-trim-zeros
+:    trim trailing zeros
+
+\-\-write-ints
+:    convert 4-byte sequences to integers
+
+# DESCRIPTION
+
+`ktest-tool` pretty-prints the contents of the specified ktest file.
+
+# EXAMPLES
+
+None.
+
+# SEE ALSO
+
+`klee`(1).
+
+# KLEE
+
+Part of the `klee`(1) suite.
