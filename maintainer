@@ -1,0 +1,64 @@
+#!/usr/bin/make -f
+SHELL = /bin/bash
+GITDIR = ./.git
+
+help:
+	@echo "Subcommands: bump sync commit tag tarball sign"
+
+PKGNAME = $(shell head -n1 configure.ac | cut -d[ -f3 | cut -d] -f1)
+VERSION = $(shell head -n1 configure.ac | cut -d[ -f5 | cut -d] -f1)
+RELEASE ?= 1
+
+NV    = $(PKGNAME)-$(VERSION)
+NVR   = $(PKGNAME)-$(VERSION)-$(RELEASE)
+TARBALL    = $(NV).tar.gz
+
+# Construction Rules
+
+sync:
+	@echo No syncing necessary.
+
+commit:
+	git commit --allow-empty -a -m "$(NV)."
+
+$(GITDIR)/refs/tags/%:
+	git tag -s -f -m "$*" "$*"
+
+tag: $(GITDIR)/refs/tags/$(NV)
+
+$(TARBALL): $(GITDIR)/refs/tags/$(NV)
+	git archive --format=tar --prefix=$(NV)/ $(NV) | gzip -c -9 > $(TARBALL)
+
+$(PKGNAME)_$(VERSION).orig.tar.gz: $(TARBALL)
+	cp $< $@
+
+tarball: $(TARBALL)
+
+$(TARBALL).asc: $(TARBALL)
+	gpg -ab $<
+
+sign: $(TARBALL).asc
+
+# Snapshot and Release Rules
+
+debcommit:
+	git-dch -R -N $(VERSION)-$(RELEASE) --debian-tag="debian/klee-%(version)s" --upstream-tag="klee-%(version)s"
+	git commit --allow-empty -a -m "debian/$(NVR)"
+
+debtag: $(GITDIR)/refs/tags/debian/$(NVR)
+
+debpkg: $(GITDIR)/refs/tags/debian/$(NVR)
+	git-buildpackage --git-builder="debuild -us -uc" --git-debian-tag="debian/klee-%(version)s" --git-upstream-tag="klee-%(version)s"
+
+ubucommit:
+	git-dch -R -N $(VERSION)-$(RELEASE) --debian-tag="ubuntu/klee-%(version)s" --upstream-tag="klee-%(version)s"
+	git commit --allow-empty -a -m "ubuntu/$(NVR)"
+
+ubutag: $(GITDIR)/refs/tags/ubuntu/$(NVR)
+
+ubupkg: $(GITDIR)/refs/tags/ubuntu/$(NVR)
+	git-buildpackage --git-builder="debuild -us -uc" --git-debian-tag="ubuntu/klee-%(version)s" --git-upstream-tag="klee-%(version)s"
+
+.PHONY: bump commit tarball sign debbump debcommit debtag
+
+# vim: set noet ts=8 sw=8 :
