@@ -1,5 +1,8 @@
 klee (0.1.0-1) unstable; urgency=low
 
   * Initial release (Closes: #576142)
+  * Make runtime support library search path configurable at runtime.
+  * Remove 4-clause BSD source code.
+  * Add debianization.
 
- -- Michael Stone <michael@akamai.com>  Sun, 04 Dec 2011 18:50:28 -0500
+ -- Michael Stone <michael@laptop.org>  Sun, 11 Dec 2011 18:18:40 -0500
