@@ -31,7 +31,7 @@ pr-%:
 #
 PROGRAMS = build/bin/klee
 
-SCRIPTS =
+SCRIPTS = tools/ktest-tool/ktest-tool
 
 LIBRARIES = build/lib/libkleeRuntimeIntrinsic.bca build/lib/libkleeRuntimePOSIX.bca
 
@@ -114,6 +114,9 @@ build/usr/include/klee/klee.h: include/klee/klee.h build/usr/include/klee/.dir
 	cp $< $@
 
 t/help.t.ok: build/bin/klee
+
+t/jpeg.bc_CPPFLAGS = -Iinclude/
+t/jpeg.t.ok: build/bin/klee t/jpeg.bc
 
 -include private.mk
 
