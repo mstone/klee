@@ -1,0 +1,246 @@
+Format: http://dep.debian.net/deps/dep5
+Upstream-Name: klee
+Upstream-Contact: klee-dev@keeda.stanford.edu
+Source: http://llvm.org/svn/llvm-project/klee/trunk
+
+Copyright: 2007-2009 Stanford University
+License: UoI-NCSA
+ ==============================================================================
+ klee Release License
+ ==============================================================================
+ University of Illinois/NCSA
+ Open Source License
+ .
+ Copyright (c) 2007-2009 Stanford University.
+ All rights reserved.
+ .
+ Developed by:
+ .
+     klee Team
+ .
+     Stanford Checking Group
+ .
+     http://klee.llvm.org
+ .
+ Permission is hereby granted, free of charge, to any person obtaining a copy of
+ this software and associated documentation files (the "Software"), to deal with
+ the Software without restriction, including without limitation the rights to
+ use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+ of the Software, and to permit persons to whom the Software is furnished to do
+ so, subject to the following conditions:
+ .
+     * Redistributions of source code must retain the above copyright notice,
+       this list of conditions and the following disclaimers.
+ .
+     * Redistributions in binary form must reproduce the above copyright notice,
+       this list of conditions and the following disclaimers in the
+       documentation and/or other materials provided with the distribution.
+ .
+     * Neither the names of the klee Team, Stanford University, nor the
+       names of its contributors may be used to endorse or promote
+       products derived from this Software without specific prior
+       written permission.
+ .
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
+ CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS WITH THE
+ SOFTWARE.
+ .
+ ==============================================================================
+ The klee software contains code written by third parties.  Such software will
+ have its own individual LICENSE.TXT file in the directory in which it appears.
+ This file will describe the copyrights, license, and restrictions which apply
+ to that code.
+ .
+ The disclaimer of warranty in the University of Illinois Open Source License
+ applies to all code in the klee Distribution, and nothing in any of the other
+ licenses gives permission to use the names of the klee Team or Stanford
+ University to endorse or promote products derived from this Software.
+ .
+ The following pieces of software have additional or alternate copyrights,
+ licenses, and/or restrictions:
+ .
+ Program             Directory
+ -------             ---------
+ STP                 klee/stp
+ klee-libc           runtime/klee-libc
+
+Files: stp/*
+Copyright: 2005 The Board of Trustees of Leland Stanford Junior University
+License:
+ /*****************************************************************************/
+ /*  AUTHORS:    Vijay Ganesh, David L. Dill             DATE: Nov 2005       */
+ /*****************************************************************************/
+ /* Copyright (C) 2005 by the Board of Trustees of Leland Stanford            */
+ /* Junior University.                                                        */
+ /*                                                                           */
+ /* License to use, copy, modify, sell and/or distribute this software        */
+ /* and its documentation for any purpose is hereby granted without           */
+ /* royalty, subject to the terms and conditions defined in the \ref          */
+ /* LICENSE file provided with this distribution.  In particular:             */
+ /*                                                                           */
+ /* - The above copyright notice and this permission notice must appear       */
+ /* in all copies of the software and related documentation.                  */
+ /*                                                                           */
+ /* - THE SOFTWARE IS PROVIDED "AS-IS", WITHOUT ANY WARRANTIES,               */
+ /* EXPRESSED OR IMPLIED.  USE IT AT YOUR OWN RISK.                           */
+ /*****************************************************************************/
+
+Files: configure
+Copyright: 1992, 1993, 1994, 1995, 1996, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006 Free Software Foundation, Inc.
+License:
+ # This configure script is free software; the Free Software Foundation
+ # gives unlimited permission to copy, distribute and modify it.
+
+Files:
+ autoconf/config.sub
+ autoconf/config.guess
+Copyright:  1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009 Free Software Foundation, Inc.
+License: GPL-2+ with Autoconf exception
+ See /usr/share/common-licenses/GPL-2.
+ .
+ # As a special exception to the GNU General Public License, if you
+ # distribute this file as part of a program that contains a
+ # configuration script generated by Autoconf, you may include it under
+ # the same distribution terms that you use for the rest of that program.
+
+Files:
+ stp/constantbv/constantbv.cpp
+ stp/constantbv/constantbv.h
+Copyright: 1995-2004 Steffen Beyer
+License: LGPL-2+
+ See /usr/share/common-licenses/LGPL-2.
+
+Files:
+ stp/sat/SolverTypes.h
+ stp/sat/VarOrder.h
+ stp/sat/Global.h
+ stp/sat/Solver.cpp
+ stp/sat/Sort.h
+ stp/sat/Simplifier.cpp
+ stp/sat/Heap.h
+ stp/sat/Solver.h
+Copyright: 2003-2005 Niklas Een, Niklas Sorensson
+License: MIT
+ Permission is hereby granted, free of charge, to any person obtaining a
+ copy of this software and associated documentation files (the
+ "Software"), to deal in the Software without restriction, including
+ without limitation the rights to use, copy, modify, merge, publish,
+ distribute, sublicense, and/or sell copies of the Software, and to
+ permit persons to whom the Software is furnished to do so, subject to
+ the following conditions:
+ .
+ The above copyright notice and this permission notice shall be included
+ in all copies or substantial portions of the Software.
+ .
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+Files: stp/c_interface/fdstream.h
+Copyright: 2001 Nicolai M. Josuttis
+License:
+  * Permission to copy, use, modify, sell and distribute this software
+  * is granted provided this copyright notice appears in all copies.
+  * This software is provided "as is" without express or implied
+  * warranty, and with no claim as to its suitability for any purpose.
+
+
+Files: lib/Support/RNG.cpp
+Copyright:
+ 1997-2002 Makoto Matsumoto and Takuji Nishimura
+License:
+ Copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura,
+ All rights reserved.
+ .
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions
+ are met:
+ .
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+ .
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+ .
+   3. The names of its contributors may not be used to endorse or promote
+      products derived from this software without specific prior written
+      permission.
+ .
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+Files:
+ lib/SMT/smtlib.lex
+ lib/SMT/smtlib.y
+Copyright: 2003-2009 The Board of Trustees of Leland Stanford Junior University, New York University, and the University of Iowa
+License: CVC3
+ Copyright (C) 2003-2009 by the Board of Trustees of Leland Stanford Junior
+ University, New York University, and the University of Iowa, hereafter
+ designated as the Copyright Owners.
+ .
+ All rights reserved.
+ .
+ Redistribution and use in source and binary forms, with or without modification,
+ are permitted provided that the following conditions are met:
+ .
+ * Redistributions of source code must retain the above copyright notice, this
+ list of conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright notice,
+ this list of conditions and the following disclaimer in the documentation
+ and/or other materials provided with the distribution.
+ * Neither the names of the Copyright Owners nor the names of any contributors
+ may be used to endorse or promote products derived from this software
+ without specific prior written permission.
+ .
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT OWNERS AND CONTRIBUTORS ''AS IS'' AND ANY
+ EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNERS OR CONTRIBUTORS BE LIABLE FOR ANY
+ DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+Files: debian/*
+Copyright: 2010 Michael Stone <michael@laptop.org>
+License: MIT
+ Copyright (c) 2010, 2011 Michael Stone <michael@laptop.org>
+ .
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+ .
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+ .
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.
