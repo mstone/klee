@@ -1,0 +1,128 @@
+pkgname ?= @PACKAGE_NAME@
+pkgver ?= @PACKAGE_VERSION@
+nv ?= @PACKAGE_NAME@-@PACKAGE_VERSION@
+
+DESTDIR ?= /
+prefix ?= @prefix@
+exec_prefix ?= @exec_prefix@
+bindir ?= @bindir@
+sbindir ?= @sbindir@
+localstatedir ?= @localstatedir@
+sysconfdir ?= @sysconfdir@
+libdir ?= @libdir@
+includedir ?= @includedir@
+libexecdir ?= @libexecdir@
+datarootdir ?= @datarootdir@
+datadir ?= @datadir@
+mandir ?= @mandir@
+pkgconfigdir ?= @libdir@/pkgconfig
+
+# libllvm configuration
+
+libllvm_CPPFLAGS ?= @libllvm_CPPFLAGS@
+libllvm_LDFLAGS ?= @libllvm_LDFLAGS@
+
+LLVMAR ?= @llvmar@
+LLVMAS ?= @llvmas@
+LLVMRANLIB ?= @llvmranlib@
+
+define BCA_rule
+$(1): $$($(1)_PRE) $$($(1)_OBJS)
+	$(LLVMAR) qcs $$@ $$($(1)_OBJS)
+	$(LLVMRANLIB) $$@
+endef
+
+# self-configuration
+
+self_CPPFLAGS := -I./ -Iinclude/ -DRUNTIME_CONFIGURATION='' -DEXT_HASH_MAP
+self_DEPS := libllvm
+self_LDFLAGS := -ldl -lpthread
+
+# gnu configuration
+
+CC ?= gcc
+CXX ?= g++
+AR ?= ar
+RANLIB ?= ranlib
+
+WARNFLAGS = \
+        -W -Wformat -Wall -Wundef -Wpointer-arith -Wcast-qual \
+        -Wcast-align -Wwrite-strings -Wsign-compare \
+        -Wmissing-noreturn \
+        -Wextra -Wstrict-aliasing=2
+
+DEPFLAGS = -MMD -MP
+CFLAGS ?= -O3 -ggdb3
+CXXFLAGS ?= -O3 -ggdb3
+CPPFLAGS ?=
+LDFLAGS ?= -ggdb3
+
+GNU_CPPFLAGS = $(CPPFLAGS)
+GNU_CFLAGS = -std=gnu99 -fPIC $(WARNFLAGS) $(DEPFLAGS) $(CFLAGS)
+GNU_CXXFLAGS = -std=gnu++98 -fPIC $(WARNFLAGS) $(DEPFLAGS) $(CXXFLAGS)
+
+%.o: $(cc_PRE) $($(@)_PRE) %.c
+	$(CC) $(GNU_CFLAGS) $($(@)_CFLAGS) $(GNU_CPPFLAGS) $($(@)_CPPFLAGS) -c -o $@ $*.c
+
+%.o: $(cxx_PRE) $($(@)_PRE) %.cc
+	$(CXX) $(GNU_CXXFLAGS) $($(@)_CXXFLAGS) $(GNU_CPPFLAGS) $($(@)_CPPFLAGS) -c -o $@ $*.cc
+
+%.o: $(cxx_PRE) $($(@)_PRE) %.cpp
+	$(CXX) $(GNU_CXXFLAGS) $($(@)_CXXFLAGS) $(GNU_CPPFLAGS) $($(@)_CPPFLAGS) -c -o $@ $*.cpp
+
+define ELF_rule
+$(1): $$($(1)_PRE) $$($(1)_OBJS)
+	$(CXX) -o $$@ $$($(1)_OBJS) $(LDFLAGS) $$($(1)_LDFLAGS)
+endef
+
+define A_rule
+$(1): $$($(1)_PRE) $$($(1)_OBJS)
+	$(AR) qcs $$@ $$($(1)_OBJS)
+	$(RANLIB) $$@
+endef
+
+# clang configuration
+
+CLANG ?= clang
+CLANGXX ?= clang++
+
+CLANG_CPPFLAGS = $(CPPFLAGS)
+CLANG_CFLAGS = -std=gnu89 -fPIC $(WARNFLAGS) $(DEPFLAGS) $(CFLAGS)
+CLANG_CXXFLAGS = -std=gnu++98 -fPIC $(WARNFLAGS) $(DEPFLAGS) $(CXXFLAGS)
+
+%.bc: $(clang_PRE) $($(@)_PRE) %.c
+	$(CLANG) $(CLANG_CFLAGS) $($(@)_CFLAGS) $(CLANG_CPPFLAGS) $($(@)_CPPFLAGS) -c -emit-llvm -o $@ $*.c
+%.bc: $(clang_PRE) $($(@)_PRE) %.cc
+	$(CLANGXX) $(CLANG_CXXFLAGS) $($(@)_CXXFLAGS) $(CLANG_CPPFLAGS) $($(@)_CPPFLAGS) -c -emit-llvm -o $@ $*.cc
+%.bc: $(clang_PRE) $($(@)_PRE) %.cpp
+	$(CLANGXX) $(CLANG_CXXFLAGS) $($(@)_CXXFLAGS) $(CLANG_CPPFLAGS) $($(@)_CPPFLAGS) -c -emit-llvm -o $@ $*.cpp
+
+# llvm-gcc configuration
+
+%.ll: $(llvmgcc_PRE) $($(@)_PRE) %.c
+	$(LLVMGCC) $(LLVMGCC_CFLAGS) $($(@)_CFLAGS) $(LLVMGCC_CPPFLAGS) $($(@)_CPPFLAGS) -S -emit-llvm -o $@ $*.c
+
+%.ll: $(llvmgcc_PRE) $($(@)_PRE) %.cc
+	$(LLVMGXX) $(LLVMGCC_CXXFLAGS) $($(@)_CXXFLAGS) $(LLVMGCC_CPPFLAGS) $($(@)_CPPFLAGS) -S -emit-llvm -o $@ $*.cc
+
+%.ll: $(llvmgcc_PRE) $($(@)_PRE) %.cpp
+	$(LLVMGXX) $(LLVMGCC_CXXFLAGS) $($(@)_CXXFLAGS) $(LLVMGCC_CPPFLAGS) $($(@)_CPPFLAGS) -S -emit-llvm -o $@ $*.cpp
+
+%.bc: $(llvmgcc_PRE) $($(@)_PRE) %.ll
+	$(LLVMAS) $(LLVMGCC_ASFLAGS) $($(@)_ASFLAGS) -o $@ $*.ll
+
+# pandoc configuration
+
+gzip ?= gzip
+mkdir ?= mkdir -p $@
+pandoc ?= pandoc
+pandoc_html ?= $(pandoc) -s -S -r markdown -w man $< | man2html -r - | tail -n +3 | sed -e '3i<link href="../man.css" rel="stylesheet" type="text/css"/>' > $@
+pandoc_gz ?= $(pandoc) -s -S -r markdown -w man $< | gzip -c - > $@
+
+define PANDOC_rule
+man$(1)/%.$(1).gz: docs/man/%.txt
+	mkdir -p $$(@D) && $$(pandoc_gz)
+man$(1)/%.$(1).html: docs/man/%.txt
+	mkdir -p $$(@D) && $$(pandoc_html) || :
+endef
+
