@@ -113,6 +113,8 @@ build/usr/lib/pkgconfig/klee.pc: build/usr/lib/pkgconfig/.dir config.mk Makefile
 build/usr/include/klee/klee.h: include/klee/klee.h build/usr/include/klee/.dir
 	cp $< $@
 
+t/help.t.ok: build/bin/klee
+
 -include private.mk
 
 # codegen
