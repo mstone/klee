@@ -2,7 +2,7 @@ Source: klee
 Section: devel
 Priority: extra
 Maintainer: Michael Stone <michael@laptop.org>
-Build-Depends: cdbs, debhelper (>= 8.0.0), autotools-dev, llvm-3.0-dev | llvm-2.9-dev | llvm-2.8-dev | llvm-2.7-dev, clang
+Build-Depends: cdbs, debhelper (>= 8.0.0), autotools-dev, llvm-3.0-dev | llvm-2.9-dev | llvm-2.8-dev | llvm-2.7-dev, clang, pandoc
 Standards-Version: 3.9.2
 Homepage: http://klee.llvm.org
 Vcs-Git: git://dev.laptop.org/users/mstone/klee
