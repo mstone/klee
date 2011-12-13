@@ -20,7 +20,7 @@ pr-%:
 # rules
 
 %.ok: $($(@)_PRE) % Makefile
-	@{ $* && echo "$* OK"; } || { echo "$* FAIL" && head $*.log && exit 1; }
+	@{ $*; } || { echo "$* FAIL" && exit 1; }
 	@touch $@
 
 %/.dir:
@@ -121,6 +121,23 @@ t/help.t.ok: build/bin/klee
 t/jpeg.bc_CPPFLAGS = -Iinclude/
 t/jpeg.t.ok: build/bin/klee t/jpeg.bc
 
+test/%.ok: test/%.t all.stamp
+test/%.t: test/%.cpp scripts/t3
+	@env LLVMAS="$(LLVMAS)" LLVMLD="$(LLVMLD)" scripts/t3 $@ $<
+test/%.t: test/%.cc scripts/t3
+	@env LLVMAS="$(LLVMAS)" LLVMLD="$(LLVMLD)" scripts/t3 $@ $<
+test/%.t: test/%.c scripts/t3
+	@env LLVMAS="$(LLVMAS)" LLVMLD="$(LLVMLD)" scripts/t3 $@ $<
+test/%.t: test/%.ll scripts/t3
+	@env LLVMAS="$(LLVMAS)" LLVMLD="$(LLVMLD)" scripts/t3 $@ $<
+
+KLEE_TESTS += $(patsubst %.cpp,%.t.ok,$(shell find test -name '*.cpp'))
+KLEE_TESTS += $(patsubst %.cpp,%.t.ok,$(shell find test -name '*.cc'))
+KLEE_TESTS += $(patsubst %.c,%.t.ok,$(shell find test -name '*.c'))
+KLEE_TESTS += $(patsubst %.ll,%.t.ok,$(shell find test -name '*.ll'))
+
+.PRECIOUS: $(patsubst %.ok,%,$(KLEE_TESTS))
+
 -include private.mk
 
 # codegen
@@ -170,7 +187,10 @@ $(foreach N,1 2 3 4 5 6 7 8,$(eval $(call MAN_template,$(N))))
 
 # targets
 
-all: $(PROGRAMS) $(LIBRARIES) $(HEADERS) $(SCRIPTS) $(PKGCONFIGS) docs
+all: all.stamp
+
+all.stamp: $(PROGRAMS) $(LIBRARIES) $(HEADERS) $(SCRIPTS) $(PKGCONFIGS) docs
+	touch $@
 
 docs: $(MANPAGES_GZ) $(MANPAGES_HTML)
 
@@ -179,7 +199,7 @@ clean:
 	rm -rf $(patsubst %,man%,1 2 3 4 5 6 7 8)
 	find t -name '*.ok' -delete
 
-check: all $(patsubst %,%.ok,$(shell find t -name '*.t'))
+check: all $(patsubst %,%.ok,$(shell find t -name '*.t')) $(KLEE_TESTS)
 
 install: all
 	install -d -m 0755 "$(DESTDIR)$(bindir)"
