@@ -63,6 +63,7 @@ AC_SUBST(LLVM_VERSION_MINOR,$llvm_version_minor)
 
 AC_CHECK_PROGS(llvmar, [llvm-ar-${llvm_version} llvm-ar], [:])
 AC_CHECK_PROGS(llvmas, [llvm-as-${llvm_version} llvm-as], [:])
+AC_CHECK_PROGS(llvmld, [llvm-ld-${llvm_version} llvm-ld], [:])
 AC_CHECK_PROGS(llvmranlib, [llvm-ranlib-${llvm_version} llvm-ranlib], [:])
 
 

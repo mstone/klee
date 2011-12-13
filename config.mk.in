@@ -24,6 +24,7 @@ libllvm_LDFLAGS ?= @libllvm_LDFLAGS@
 
 LLVMAR ?= @llvmar@
 LLVMAS ?= @llvmas@
+LLVMLD ?= @llvmld@
 LLVMRANLIB ?= @llvmranlib@
 
 define BCA_rule
