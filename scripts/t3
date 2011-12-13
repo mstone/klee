@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "#!/bin/bash -e" > $1.tmp
-if grep -q -- "--libc=klee" $2; then
+if grep -q -e "--libc=klee" -e "%kleaver" $2; then
 	echo 'echo "$0 SKIP"' >> $1.tmp
 else
 	echo "exec 6>&1" >> $1.tmp;
