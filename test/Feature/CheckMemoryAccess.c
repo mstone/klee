@@ -1,7 +1,7 @@
 // RUN: %llvmgcc -g -c %s -o %t.bc
-// RUN: %klee %t.bc > %t.log
-// RUN: grep -q "good" %t.log
-// RUN: not grep -q "bad" %t.log
+// RUN: %klee %t.bc > %t.k
+// RUN: grep -q "good" %t.k
+// RUN: not grep -q "bad" %t.k
 
 #include <assert.h>
 #include <stdlib.h>
